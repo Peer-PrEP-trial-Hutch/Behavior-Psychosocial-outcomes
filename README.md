@@ -1,8 +1,7 @@
 [![DOI](https://zenodo.org/badge/170770869.svg)](https://doi.org/10.5281/zenodo.17173243)
 
 
-# Effectiveness of a peer-delivered HIV prevention intervention on sexual behavior and psychosocial outcomes among Kenyan adolescent girls and young womenEffectiveness of a peer-delivered HIV prevention intervention on sexual behavior and psychosocial outcomes among Kenyan adolescent girls and young women
-
+# Effectiveness of a peer-delivered HIV prevention intervention on sexual behavior and psychosocial outcomes among Kenyan adolescent girls and young women
 ## Overview
 
 This repository stores the core analytical information of the manuscript entitled 
