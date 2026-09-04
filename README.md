@@ -19,19 +19,28 @@ the Peer PrEP cRCT ([ClinicalTrials.gov: NCT04982250](https://clinicaltrials.gov
 
 ## Codebook
 
-# - *datasets/data dictionary.xlsx*
-# 
-# 
-#     - Sheet '1. ds_pbl': Index peer's baseline.
-#     - Sheet '2. ds_pfu': Index peer's follow-up.
-#     - Sheet '3. ds_pfu_lcomp': Referred peer's outcomes by Index peer follow-up.
-#     - Sheet '4. ds_cfu': Referred peer's baseline covariates and outcomes.
 
+<!--
+- *datasets/data dictionary.xlsx*
+
+
+    - Sheet '1. ds_pbl': Index peer's baseline.
+    - Sheet '2. ds_pfu': Index peer's follow-up.
+    - Sheet '3. ds_pfu_lcomp': Referred peer's outcomes by Index peer follow-up.
+    - Sheet '4. ds_cfu': Referred peer's baseline covariates and outcomes.
+-->
 
 
 
 ## Analyses scripts
+<!--
 - *scripts/aim1.R*
+-->
+
 
 ## Reference
-# *Ortblad KF, Wairimu N, Culquichicon C, Njeru I, Malen RC, et al. (2026) Effect of enhanced peer PrEP referral with HIV self-testing delivery among young Kenyan women: A randomized controlled trial of peer networks. PLOS Medicine 23(3): e1005023. https://doi.org/10.1371/journal.pmed.1005023*
+
+<!--
+*Ortblad KF, Wairimu N, Culquichicon C, Njeru I, Malen RC, et al. (2026) Effect of enhanced peer PrEP referral with HIV self-testing delivery among young Kenyan women: A randomized controlled trial of peer networks. PLOS Medicine 23(3): e1005023. https://doi.org/10.1371/journal.pmed.1005023*
+
+-->
