@@ -2,7 +2,7 @@
 -->
 
 
-# Effectiveness of a peer-delivered HIV prevention intervention on sexual behavior and psychosocial outcomes among Kenyan adolescent girls and young women
+# Effect of a peer-delivered HIV prevention intervention on sexual behavior and psychosocial outcomes among Kenyan adolescent girls and young women
 ## Overview
 
 This repository stores the core analytical information of the manuscript entitled 
