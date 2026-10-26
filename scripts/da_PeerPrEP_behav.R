@@ -26,7 +26,7 @@ p_load(writexl, readxl, janitor, openxlsx,
 )
 
 ds_pbl=readxl::read_excel(file.path(dataws,paste0("datasets/1. df_pbl_behav.xlsx")))
-
+ds_pfu=readxl::read_excel(file.path(dataws,paste0("datasets/2. df_pfu_behav.xlsx")))
 ds_cfu=readxl::read_excel(file.path(dataws,paste0("datasets/4. ds_cfu_behav.xlsx")))
 
 
@@ -223,9 +223,69 @@ df_table_total_cfu_out=compareGroups(vars_f, data = df_table_total_in_cfu,
 
 
 # Table 2 ----
+## index peers ----
+
+labels_df_total_fu=c(p2_s0_arm="Study arm",
+                     p2_s2_q7="Condomless sex with partner of unknown or positive HIV status",
+                     p2_s2_q9="Emergency contraception",
+                     p2_s2_q11="PEP uses >2 times",
+                     p2_s2_q12="Engaged in sex with drugs or alcohol",
+                     p2_s2_q13="Engaged in transactional sex",
+                     p2_s2_q3a_1="Condomless sex")
 
 
 
+vars=c("p2_s0_arm",
+       
+
+       "p2_s2_q7","p2_s2_q9","p2_s2_q11","p2_s2_q12","p2_s2_q13",
+       
+       "p2_s2_q3a_1"
+
+)
+
+
+vars_c=paste(vars,collapse = "+")
+vars_c_f=as.formula(paste("~",vars_c))
+vars_f=as.formula(paste("p2_s0_arm~",vars_c))
+
+
+df_table_total_in_fu=ds_pfu %>% dplyr::select(all_of(vars))
+df_table_total_in_fu=set_variable_labels(df_table_total_in_fu, 
+                                         .labels = labels_df_total_fu)
+
+
+df_table_total_pfu_out_diss_exp=compareGroups(vars_f, data = df_table_total_in_fu,
+                                              method=c(p2_s5_q3=2), simplify=TRUE) %>% createTable(show.n=T)
+
+
+
+addmargins(table(ds_pfu$mspss_score_bin,ds_pfu$p2_s0_arm, useNA = 'always'))
+round(prop.table(table(ds_pfu$mspss_score_bin,ds_pfu$p2_s0_arm, useNA = 'always'), margin=2)*100,0)
+
+
+addmargins(table(ds_pfu$phq2_score_bin,ds_pfu$p2_s0_arm, useNA = 'always'))
+round(prop.table(table(ds_pfu$phq2_score_bin,ds_pfu$p2_s0_arm, useNA = 'always'), margin = 2)*100,0)
+
+
+## refered peers ----
+
+addmargins(table(ds_cfu$incons_condom,ds_cfu$c2_s0_arm))
+round(prop.table(table(ds_cfu$incons_condom,ds_cfu$c2_s0_arm), margin = 2)*100,0)
+
+
+addmargins(table(ds_cfu$phq2_score_bin,ds_cfu$c2_s0_arm))
+round(prop.table(table(ds_cfu$phq2_score_bin,ds_cfu$c2_s0_arm), margin = 2)*100,0)
+
+
+ds_cfu$mspss_score_bin=as.factor(ifelse(ds_pfu$mspss_score<=35, "Low perceived support",
+                                        ifelse(ds_pfu$mspss_score>35, "Medium/High perceived support",NA)))
+ds_cfu$mspss_score_bin_num=as.numeric(ds_pfu$mspss_score_bin)-1
+
+
+
+addmargins(table(ds_cfu$mspss_score_bin,ds_cfu$c2_s0_arm))
+round(prop.table(table(ds_cfu$mspss_score_bin,ds_cfu$c2_s0_arm), margin = 2)*100,0)
 
 
 # Figure 2 ----
