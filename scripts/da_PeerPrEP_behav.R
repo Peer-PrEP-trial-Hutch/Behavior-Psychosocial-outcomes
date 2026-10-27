@@ -27,7 +27,7 @@ p_load(writexl, readxl, janitor, openxlsx,
 
 ds_pbl=readxl::read_excel(file.path(dataws,paste0("datasets/1. df_pbl_behav.xlsx")))
 ds_pfu=readxl::read_excel(file.path(dataws,paste0("datasets/2. df_pfu_behav.xlsx")))
-ds_cfu=readxl::read_excel(file.path(dataws,paste0("datasets/3. ds_cfu_behav.xlsx")))
+ds_cfu=readxl::read_excel(file.path(dataws,paste0("datasets/3. df_cfu_behav.xlsx")))
 
 
 # Table 1 ----
@@ -94,12 +94,8 @@ vars_f=as.formula(paste("p1_s0_arm~",vars_c))
 
 df_table_total_in_f=ds_pbl[,vars]
 
-#ds_pbl %>% dplyr::select(all_of(vars))
 df_table_total_in=set_variable_labels(df_table_total_in_f, 
                                       .labels = labels_df_total)
-#label(df_table_total_in)
-
-#compareGroups(year ~ age + triglyc, data=regicor, method = c(triglyc=2), Q1=0, Q3=1)
 
 df_table_total_out=compareGroups(vars_f, data = df_table_total_in,
                                  method=c(p1_s1_q1=2,p1_s1_q2=2,p1_s2_q7=2,p1_s1_q7=2,p1_s2_q6=2,prep_first=2,
@@ -149,7 +145,7 @@ labels_df_total_cfu=c(
 
 
 
-vars=c(
+vars3=c(
   "c2_s0_arm",
   "c2_s1_q1",
   "c2_s1_q4",
@@ -174,12 +170,12 @@ vars=c(
        
 )
 
-vars_c=paste(vars,collapse = "+")
+vars_c=paste(vars3,collapse = "+")
 vars_c_f=as.formula(paste("~",vars_c))
 vars_f=as.formula(paste("c2_s0_arm~",vars_c))
 
 
-df_table_total_in_cfu=ds_cfu %>% dplyr::select(all_of(vars))
+df_table_total_in_cfu=ds_cfu %>% dplyr::select(all_of(vars3))
 df_table_total_in_cfu=set_variable_labels(df_table_total_in_cfu, 
                                           .labels = labels_df_total_cfu)
 
@@ -209,7 +205,7 @@ labels_df_total_fu=c(p2_s0_arm="Study arm",
 
 
 
-vars=c("p2_s0_arm",
+vars2=c("p2_s0_arm",
        
 
        "p2_s2_q7","p2_s2_q9","p2_s2_q11","p2_s2_q12","p2_s2_q13",
@@ -219,12 +215,12 @@ vars=c("p2_s0_arm",
 )
 
 
-vars_c=paste(vars,collapse = "+")
+vars_c=paste(vars2,collapse = "+")
 vars_c_f=as.formula(paste("~",vars_c))
 vars_f=as.formula(paste("p2_s0_arm~",vars_c))
 
 
-df_table_total_in_fu=ds_pfu %>% dplyr::select(all_of(vars))
+df_table_total_in_fu=ds_pfu %>% dplyr::select(all_of(vars2))
 df_table_total_in_fu=set_variable_labels(df_table_total_in_fu, 
                                          .labels = labels_df_total_fu)
 
@@ -386,4 +382,33 @@ rownames(df_client_rprovid_mspss_c_glmm)=c("MSPSS high/medium")
 
 
 
+
+# extra cleanning ----
+
+openxlsx::write.xlsx(ds_pbl[,c("p1_ptid",vars)],
+                     file.path(dataws,"datasets/1. df_pbl_behav2.xlsx"), keepNA =TRUE)
+
+
+
+
+openxlsx::write.xlsx(ds_pfu[,c("p2_ptid",vars2,"phq2_score_bin","mspss_score_bin","mspss_score_bin_num",
+                               "p2_s0_arm_num",
+                               "p2_s2_q7_num",
+                               "p2_s2_q9_num",
+                               "p2_s2_q12_num",
+                               "p2_s2_q8_num",
+                               "p2_s2_q13_num",
+                               "p2_s2_q3a_1_num")],
+                     file.path(dataws,"datasets/2. ds_pfu_behav2.xlsx"), keepNA =TRUE)
+
+
+openxlsx::write.xlsx(ds_cfu[,c("c2_ptid",
+                               "c2_s0_arm_num",
+                               vars3,
+                               "incons_condom",
+                               "incons_condom_num",
+                               "phq2_score_bin",
+                               "mspss_score_bin",
+                               "mspss_score_bin_num")],
+                     file.path(dataws,"datasets/3. df_cfu_behav2.xlsx"), keepNA =TRUE)
 

@@ -18,7 +18,7 @@ the Peer PrEP cRCT ([ClinicalTrials.gov: NCT04982250](https://clinicaltrials.gov
 ## Codebook
 
 
-- *datasets/data dictionary.xlsx*
+- *datasets/data dictionary_behav.xlsx*
 
 
     - Sheet '1. ds_pbl': Index peer's baseline.
