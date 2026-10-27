@@ -252,11 +252,6 @@ addmargins(table(ds_cfu$phq2_score_bin,ds_cfu$c2_s0_arm))
 round(prop.table(table(ds_cfu$phq2_score_bin,ds_cfu$c2_s0_arm), margin = 2)*100,0)
 
 
-ds_cfu$mspss_score_bin=as.factor(ifelse(ds_pfu$mspss_score<=35, "Low perceived support",
-                                        ifelse(ds_pfu$mspss_score>35, "Medium/High perceived support",NA)))
-ds_cfu$mspss_score_bin_num=as.numeric(ds_pfu$mspss_score_bin)-1
-
-
 
 addmargins(table(ds_cfu$mspss_score_bin,ds_cfu$c2_s0_arm))
 round(prop.table(table(ds_cfu$mspss_score_bin,ds_cfu$c2_s0_arm), margin = 2)*100,0)
@@ -337,11 +332,6 @@ df_client_rprovid_glmm_out=data.frame(Var=rownames(df_client_rprovid_glmm),
 
 
 ## referred peers ----
-ds_cfu$incons_condom=factor(ifelse(ds_cfu$c2_s2_q5==0 & ds_cfu$c2_s2_q5a!=0,1,0),levels=c(1,0),labels=c("Yes","No"))
-ds_cfu$incons_condom=relevel(ds_cfu$incons_condom,ref = 'No')
-ds_cfu$incons_condom_num=as.numeric(ds_cfu$incons_condom)-1
-
-
 glmm_cless_c_m_glmm=glm(incons_condom_num ~ c2_s0_arm_num, family = gaussian(link="identity"), data=ds_cfu)
 glmm_cless_c=summary(glmm_cless_c_m_glmm)$coef
 df_client_rprovid_cless_c_glmm=cbind(cbind(glmm_cless_c[2,1],
@@ -365,7 +355,6 @@ df_client_rprovid_phq2_glmm=as.data.frame(df_client_rprovid_phq2_glmm)
 rownames(df_client_rprovid_phq2_glmm)=c("PHQ2 >= 3")
 
 
-
 glmm_mspss_bin_m_glmm=glm(mspss_score_bin_num ~ p2_s0_arm_num, family = gaussian(link="identity"), data=ds_pfu)
 glmm_mspss_bin=summary(glmm_mspss_bin_m_glmm)$coef
 df_client_rprovid_mspss_glmm=cbind(cbind(glmm_mspss_bin[2,1],
@@ -385,7 +374,6 @@ df_client_rprovid_phq2_c_glmm=cbind(cbind(glmm_phq2_bin_c[2,1],
                                   Anova(glmm_phq2_bin_c_m_glmm)[3])
 df_client_rprovid_phq2_c_glmm=as.data.frame(df_client_rprovid_phq2_c_glmm)
 rownames(df_client_rprovid_phq2_c_glmm)=c("PHQ2 >= 3")
-
 
 
 glmm_mspss_bin_c_m_glmm=glm(mspss_score_bin_num ~ c2_s0_arm_num, family = gaussian(link="identity"), data=ds_cfu)
