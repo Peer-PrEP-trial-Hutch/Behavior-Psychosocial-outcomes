@@ -27,7 +27,7 @@ p_load(writexl, readxl, janitor, openxlsx,
 
 ds_pbl=readxl::read_excel(file.path(dataws,paste0("datasets/1. df_pbl_behav.xlsx")))
 ds_pfu=readxl::read_excel(file.path(dataws,paste0("datasets/2. df_pfu_behav.xlsx")))
-ds_cfu=readxl::read_excel(file.path(dataws,paste0("datasets/4. ds_cfu_behav.xlsx")))
+ds_cfu=readxl::read_excel(file.path(dataws,paste0("datasets/3. ds_cfu_behav.xlsx")))
 
 
 # Table 1 ----
