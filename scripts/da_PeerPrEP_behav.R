@@ -30,32 +30,6 @@ ds_pfu=readxl::read_excel(file.path(dataws,paste0("datasets/2. df_pfu_behav.xlsx
 ds_cfu=readxl::read_excel(file.path(dataws,paste0("datasets/4. ds_cfu_behav.xlsx")))
 
 
-
-source(file.path(dataws,"functions/multi_table.R"))
-source(file.path(dataws,"functions/is_dup.R"))
-source(file.path(dataws,"functions/toNA.R"))
-source(file.path(dataws,"functions/toDate.R"))
-
-
-propmiss = function(dataframe) {
-  m = sapply(dataframe, function(x) {
-    data.frame(
-      nmiss=sum(is.na(x)),
-      n=length(x),
-      propmiss=sum(is.na(x))/length(x))
-  })
-  d = data.frame(t(m))
-  d = sapply(d, unlist)
-  d = as.data.frame (d)
-  d$variable = row.names (d)
-  row.names(d) = NULL
-  d = cbind(d[ncol(d)], d[-ncol(d)])
-  return(d[order(d$propmiss),])
-}
-
-
-
-
 # Table 1 ----
 ## index peers ----
 
@@ -289,9 +263,6 @@ round(prop.table(table(ds_cfu$mspss_score_bin,ds_cfu$c2_s0_arm), margin = 2)*100
 
 
 # Figure 2 ----
-
-
-
 ## index peers ----
 
 glmm_clessunk_m_glmm=glm(p2_s2_q7_num ~ p2_s0_arm_num, family = gaussian(link="identity"), data=ds_pfu)
@@ -311,8 +282,6 @@ df_client_rprovid_emcont_glmm=as.data.frame(df_client_rprovid_emcont_glmm)
 rownames(df_client_rprovid_emcont_glmm)=c("Emergency contraception")
 
 
-
-
 glmm_sda_m_glmm=glm(p2_s2_q12_num ~ p2_s0_arm_num, family = gaussian(link="identity"), data=ds_pfu)
 glmm_sda=summary(glmm_sda_m_glmm)$coef
 df_client_rprovid_sda_glmm=cbind(cbind(glmm_sda[2,1],
@@ -320,7 +289,6 @@ df_client_rprovid_sda_glmm=cbind(cbind(glmm_sda[2,1],
                                  Anova(glmm_sda_m_glmm)[3])
 df_client_rprovid_sda_glmm=as.data.frame(df_client_rprovid_sda_glmm)
 rownames(df_client_rprovid_sda_glmm)=c("Engaged in sex with drugs or alcohol")
-
 
 
 glmm_sti_m_glmm=glm(p2_s2_q8_num ~ p2_s0_arm_num, family = gaussian(link="identity"), data=ds_pfu)
@@ -332,8 +300,6 @@ df_client_rprovid_sti_glmm=as.data.frame(df_client_rprovid_sti_glmm)
 rownames(df_client_rprovid_sti_glmm)=c("STI diagnosis or treatment")
 
 
-
-
 glmm_tsex_m_glmm=glm(p2_s2_q13_num ~ p2_s0_arm_num, family = gaussian(link="identity"), data=ds_pfu)
 glmm_tsex=summary(glmm_tsex_m_glmm)$coef
 df_client_rprovid_tsex_glmm=cbind(cbind(glmm_tsex[2,1],
@@ -341,7 +307,6 @@ df_client_rprovid_tsex_glmm=cbind(cbind(glmm_tsex[2,1],
                                   Anova(glmm_tsex_m_glmm)[3])
 df_client_rprovid_tsex_glmm=as.data.frame(df_client_rprovid_tsex_glmm)
 rownames(df_client_rprovid_tsex_glmm)=c("Engaged in transactional sex")
-
 
 
 glmm_cless_m_glmm=glm(p2_s2_q3a_1_num ~ p2_s0_arm_num, family = gaussian(link="identity"), data=ds_pfu)
@@ -355,27 +320,11 @@ rownames(df_client_rprovid_cless_glmm)=c("Condomless sex")
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 df_client_rprovid_glmm=rbind(df_client_rprovid_clessunk_glmm,
                              df_client_rprovid_emcont_glmm,
                              df_client_rprovid_sda_glmm,
                              df_client_rprovid_tsex_glmm,
                              df_client_rprovid_cless_glmm
-                             # df_client_rprovid_pep_glmm,
                              )
 df_client_rprovid_glmm_out=data.frame(Var=rownames(df_client_rprovid_glmm),
                                       Estimate=round(df_client_rprovid_glmm[,1],2),
@@ -388,7 +337,6 @@ df_client_rprovid_glmm_out=data.frame(Var=rownames(df_client_rprovid_glmm),
 
 
 ## referred peers ----
-
 ds_cfu$incons_condom=factor(ifelse(ds_cfu$c2_s2_q5==0 & ds_cfu$c2_s2_q5a!=0,1,0),levels=c(1,0),labels=c("Yes","No"))
 ds_cfu$incons_condom=relevel(ds_cfu$incons_condom,ref = 'No')
 ds_cfu$incons_condom_num=as.numeric(ds_cfu$incons_condom)-1

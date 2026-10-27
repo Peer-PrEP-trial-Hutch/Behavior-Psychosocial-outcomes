@@ -6,7 +6,7 @@
 ## Overview
 
 This repository stores the core analytical information of the manuscript entitled 
-"Effectiveness of a peer-delivered HIV prevention intervention on sexual behavior and psychosocial outcomes among Kenyan adolescent girls and young women" derived from 
+"Effect of a peer-delivered HIV prevention intervention on sexual behavior and psychosocial outcomes among Kenyan adolescent girls and young women" derived from 
 the Peer PrEP cRCT ([ClinicalTrials.gov: NCT04982250](https://clinicaltrials.gov/study/NCT04982250?cond=HIV&titles=Peer%20PrEP&rank=1)).
 
 
